@@ -1,16 +1,74 @@
-# React + Vite
+# ClientFlow
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern CRM dashboard built with React and JavaScript for managing clients, deals, tasks, calendar events, and business analytics.
 
-Currently, two official plugins are available:
+## 🚀 Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+ClientFlow is a frontend CRM application designed to provide a clean and intuitive workspace for managing customer relationships and business activity.
 
-## React Compiler
+The project focuses on building a realistic SaaS-style interface with reusable React components, client-side state management, local data persistence, and responsive layouts.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the ESLint configuration
+- 📊 Interactive CRM dashboard
+- 👥 Client management with CRUD operations
+- 💼 Sales pipeline with Kanban board
+- 🖱️ Drag & drop deal management
+- ✅ Task management with priorities and statuses
+- 📅 Monthly calendar and event management
+- 📈 Business analytics and performance metrics
+- ⚙️ User and application settings
+- 🌙 Light and dark mode
+- 💾 LocalStorage persistence
+- 📱 Responsive interface
+- 🧭 Client-side routing with React Router
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tech Stack
+
+### Frontend
+
+- React
+- JavaScript
+- React Router
+- Vite
+- Lucide React
+- CSS3
+
+### Data & State
+
+- React Hooks
+- LocalStorage
+
+### Development Tools
+
+- VS Code
+- Git
+- GitHub
+- ESLint
+
+## 📂 Project Structure
+
+```text
+src/
+├── components/
+│   ├── dashboard/
+│   └── layout/
+│
+├── data/
+│   ├── clients.js
+│   ├── deals.js
+│   ├── events.js
+│   └── tasks.js
+│
+├── pages/
+│   ├── Analytics.jsx
+│   ├── Calendar.jsx
+│   ├── Clients.jsx
+│   ├── Dashboard.jsx
+│   ├── Pipeline.jsx
+│   ├── Settings.jsx
+│   └── Tasks.jsx
+│
+├── App.jsx
+├── index.css
+└── main.jsx
