@@ -1,0 +1,42 @@
+export const deals = [
+  {
+    id: 1,
+    title: "Website Redesign",
+    clientId: 1,
+    value: 2500,
+    status: "lead",
+    dueDate: "2026-10-02",
+  },
+  {
+    id: 2,
+    title: "Landing Page",
+    clientId: 2,
+    value: 1200,
+    status: "contacted",
+    dueDate: "2026-09-28",
+  },
+  {
+    id: 3,
+    title: "E-commerce Development",
+    clientId: 3,
+    value: 4800,
+    status: "proposal",
+    dueDate: "2026-10-10",
+  },
+  {
+    id: 4,
+    title: "Brand Website",
+    clientId: 4,
+    value: 3200,
+    status: "negotiation",
+    dueDate: "2026-10-05",
+  },
+  {
+    id: 5,
+    title: "Portfolio Website",
+    clientId: 5,
+    value: 1800,
+    status: "won",
+    dueDate: "2026-09-25",
+  },
+];

@@ -1,0 +1,38 @@
+export const tasks = [
+  {
+    id: 1,
+    title: "Follow up with Acme Corporation",
+    description: "Send pricing proposal and schedule a call.",
+    priority: "High",
+    status: "Todo",
+    dueDate: "2026-09-25",
+    client: "Acme Corporation",
+  },
+  {
+    id: 2,
+    title: "Prepare Globex proposal",
+    description: "Finalize proposal for the new project.",
+    priority: "Medium",
+    status: "In Progress",
+    dueDate: "2026-09-26",
+    client: "Globex Inc.",
+  },
+  {
+    id: 3,
+    title: "Send contract to Wayne Enterprises",
+    description: "Send the final contract for signature.",
+    priority: "High",
+    status: "Todo",
+    dueDate: "2026-09-27",
+    client: "Wayne Enterprises",
+  },
+  {
+    id: 4,
+    title: "Schedule Stark Industries meeting",
+    description: "Arrange a meeting with the client.",
+    priority: "Low",
+    status: "Completed",
+    dueDate: "2026-09-23",
+    client: "Stark Industries",
+  },
+];
