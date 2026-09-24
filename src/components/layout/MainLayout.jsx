@@ -1,5 +1,5 @@
 import Sidebar from "./Sidebar";
-import Navbar from "./NavbarTemp";
+import Navbar from "./Navbar";
 
 function MainLayout({ children }) {
   return (
