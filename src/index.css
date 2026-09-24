@@ -1127,4 +1127,13 @@ a {
 
 .secondary-button:hover {
   background: #f8fafc;
+}.table-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.delete-action:hover {
+  color: #dc2626;
 }
