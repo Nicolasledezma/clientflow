@@ -1,0 +1,42 @@
+export const clients = [
+  {
+    id: 1,
+    name: "Acme Corporation",
+    contact: "John Smith",
+    email: "john@acme.com",
+    status: "Active",
+    value: 24500,
+  },
+  {
+    id: 2,
+    name: "Globex Inc.",
+    contact: "Sarah Johnson",
+    email: "sarah@globex.com",
+    status: "Active",
+    value: 18200,
+  },
+  {
+    id: 3,
+    name: "Stark Industries",
+    contact: "Tony Stark",
+    email: "tony@stark.com",
+    status: "Pending",
+    value: 32800,
+  },
+  {
+    id: 4,
+    name: "Wayne Enterprises",
+    contact: "Bruce Wayne",
+    email: "bruce@wayne.com",
+    status: "Active",
+    value: 41500,
+  },
+  {
+    id: 5,
+    name: "Umbrella Corp",
+    contact: "Alice Smith",
+    email: "alice@umbrella.com",
+    status: "Inactive",
+    value: 12600,
+  },
+];

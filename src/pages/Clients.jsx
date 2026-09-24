@@ -1,51 +1,35 @@
 import { Search, Plus, MoreHorizontal } from "lucide-react";
-import { useState } from "react";
-
-const clients = [
-  {
-    id: 1,
-    name: "Acme Corporation",
-    contact: "John Smith",
-    email: "john@acme.com",
-    status: "Active",
-    value: "$24,500",
-  },
-  {
-    id: 2,
-    name: "Globex Inc.",
-    contact: "Sarah Johnson",
-    email: "sarah@globex.com",
-    status: "Active",
-    value: "$18,200",
-  },
-  {
-    id: 3,
-    name: "Stark Industries",
-    contact: "Tony Stark",
-    email: "tony@stark.com",
-    status: "Pending",
-    value: "$32,800",
-  },
-  {
-    id: 4,
-    name: "Wayne Enterprises",
-    contact: "Bruce Wayne",
-    email: "bruce@wayne.com",
-    status: "Active",
-    value: "$41,500",
-  },
-  {
-    id: 5,
-    name: "Umbrella Corp",
-    contact: "Alice Smith",
-    email: "alice@umbrella.com",
-    status: "Inactive",
-    value: "$12,600",
-  },
-];
+import { useEffect, useState } from "react";
+import { clients as initialClients } from "../data/clients";
 
 function Clients() {
+  const [clients, setClients] = useState(() => {
+    const savedClients = localStorage.getItem("clientflow_clients");
+
+    if (savedClients) {
+      return JSON.parse(savedClients);
+    }
+
+    return initialClients;
+  });
+
   const [search, setSearch] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    contact: "",
+    email: "",
+    status: "Active",
+    value: "",
+  });
+
+  useEffect(() => {
+    localStorage.setItem(
+      "clientflow_clients",
+      JSON.stringify(clients)
+    );
+  }, [clients]);
 
   const filteredClients = clients.filter((client) => {
     const searchValue = search.toLowerCase();
@@ -57,20 +41,59 @@ function Clients() {
     );
   });
 
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormData((previous) => ({
+      ...previous,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const newClient = {
+      id: Date.now(),
+      name: formData.name,
+      contact: formData.contact,
+      email: formData.email,
+      status: formData.status,
+      value: Number(formData.value),
+    };
+
+    setClients((previous) => [...previous, newClient]);
+
+    setFormData({
+      name: "",
+      contact: "",
+      email: "",
+      status: "Active",
+      value: "",
+    });
+
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="page">
+      {/* Page Header */}
       <div className="page-header">
         <div>
           <h1>Clients</h1>
           <p>Manage your clients and business relationships.</p>
         </div>
 
-        <button className="primary-button">
+        <button
+          className="primary-button"
+          onClick={() => setIsModalOpen(true)}
+        >
           <Plus size={18} />
           Add Client
         </button>
       </div>
 
+      {/* Clients Table */}
       <div className="clients-card">
         <div className="clients-toolbar">
           <div className="clients-search">
@@ -112,6 +135,7 @@ function Clients() {
                   </td>
 
                   <td>{client.contact}</td>
+
                   <td>{client.email}</td>
 
                   <td>
@@ -122,7 +146,7 @@ function Clients() {
                     </span>
                   </td>
 
-                  <td>{client.value}</td>
+                  <td>${client.value.toLocaleString()}</td>
 
                   <td>
                     <button className="table-action">
@@ -141,6 +165,118 @@ function Clients() {
           )}
         </div>
       </div>
+
+      {/* Add Client Modal */}
+      {isModalOpen && (
+        <div className="modal-overlay">
+          <div className="client-modal">
+            <div className="modal-header">
+              <div>
+                <h2>Add New Client</h2>
+                <p>Create a new client record.</p>
+              </div>
+
+              <button
+                className="modal-close"
+                onClick={() => setIsModalOpen(false)}
+              >
+                ×
+              </button>
+            </div>
+
+            <form
+              className="client-form"
+              onSubmit={handleSubmit}
+            >
+              <div className="form-group">
+                <label>Company Name</label>
+
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Enter company name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Contact Person</label>
+
+                <input
+                  type="text"
+                  name="contact"
+                  placeholder="Enter contact name"
+                  value={formData.contact}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Email</label>
+
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter email address"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Status</label>
+
+                  <select
+                    name="status"
+                    value={formData.status}
+                    onChange={handleInputChange}
+                  >
+                    <option value="Active">Active</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Inactive">Inactive</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label>Client Value</label>
+
+                  <input
+                    type="number"
+                    name="value"
+                    placeholder="0"
+                    min="0"
+                    value={formData.value}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="modal-actions">
+                <button
+                  type="button"
+                  className="secondary-button"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  Cancel
+                </button>
+
+                <button
+                  type="submit"
+                  className="primary-button"
+                >
+                  Add Client
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
