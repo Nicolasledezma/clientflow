@@ -1,8 +1,8 @@
 import {
   BrowserRouter,
-  Routes,
-  Route,
   Navigate,
+  Route,
+  Routes,
 } from "react-router-dom";
 
 import MainLayout from "./components/layout/MainLayout";
@@ -14,20 +14,27 @@ import Tasks from "./pages/Tasks";
 import Calendar from "./pages/Calendar";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
+
+import Login from "./pages/Auth/Login";
 
 function App() {
   return (
     <BrowserRouter>
-      <MainLayout>
-        <Routes>
+      <Routes>
+        {/* Authentication */}
+        <Route path="/login" element={<Login />} />
+        
+        <Route
+  path="/forgot-password"
+  element={<ForgotPassword />}
+/>
+
+        {/* Main application */}
+        <Route element={<MainLayout />}>
           <Route
             path="/"
-            element={
-              <Navigate
-                to="/dashboard"
-                replace
-              />
-            }
+            element={<Navigate to="/dashboard" replace />}
           />
 
           <Route
@@ -58,15 +65,20 @@ function App() {
           <Route
             path="/analytics"
             element={<Analytics />}
-            
-            
           />
+
           <Route
             path="/settings"
             element={<Settings />}
           />
-        </Routes>
-      </MainLayout>
+        </Route>
+
+        {/* Unknown routes */}
+        <Route
+          path="*"
+          element={<Navigate to="/dashboard" replace />}
+        />
+      </Routes>
     </BrowserRouter>
   );
 }

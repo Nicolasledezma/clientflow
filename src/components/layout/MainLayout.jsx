@@ -1,7 +1,9 @@
+import { Outlet } from "react-router-dom";
+
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 
-function MainLayout({ children }) {
+function MainLayout() {
   return (
     <div className="app-layout">
       <Sidebar />
@@ -10,7 +12,7 @@ function MainLayout({ children }) {
         <Navbar />
 
         <main className="page-content">
-          {children}
+          <Outlet />
         </main>
       </div>
     </div>

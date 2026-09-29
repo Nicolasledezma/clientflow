@@ -1,0 +1,147 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("user")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  clients       Client[]
+  deals         Deal[]
+  tasks         Task[]
+  events        Event[]
+  notifications Notification[]
+  activities    Activity[]
+  settings      UserSettings?
+}
+
+model Client {
+  id       Int     @id @default(autoincrement())
+  name     String
+  email    String?
+  phone    String?
+  company  String?
+  position String?
+  status   String  @default("active")
+  notes    String?
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  deals      Deal[]
+  tasks      Task[]
+  activities Activity[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Deal {
+  id          Int     @id @default(autoincrement())
+  title       String
+  description String?
+
+  value       Float  @default(0)
+  stage       String @default("lead")
+  probability Int    @default(0)
+
+  expectedCloseDate DateTime?
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  clientId Int?
+  client   Client? @relation(fields: [clientId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Task {
+  id          Int     @id @default(autoincrement())
+  title       String
+  description String?
+
+  status   String @default("pending")
+  priority String @default("medium")
+
+  dueDate DateTime?
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  clientId Int?
+  client   Client? @relation(fields: [clientId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Event {
+  id          Int     @id @default(autoincrement())
+  title       String
+  description String?
+
+  startDate DateTime
+  endDate   DateTime?
+
+  location String?
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Notification {
+  id      Int    @id @default(autoincrement())
+  title   String
+  message String
+
+  type String  @default("info")
+  read Boolean @default(false)
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+}
+
+model Activity {
+  id      Int     @id @default(autoincrement())
+  type    String
+  title   String
+  details String?
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  clientId Int?
+  client   Client? @relation(fields: [clientId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+}
+
+model UserSettings {
+  id Int @id @default(autoincrement())
+
+  theme              String  @default("light")
+  emailNotifications Boolean @default(true)
+  taskReminders      Boolean @default(true)
+
+  userId Int  @unique
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
